@@ -1,26 +1,60 @@
 <div class="form-container">
-    <form (ngSubmit)="register()">
+    <form (ngSubmit)="register()" #registerForm="ngForm">
         <h2>Registro de Usuario</h2>
 
+        <!-- Nombre de Usuario -->
         <label>Nombre de Usuario:</label>
-        <input type="text" [(ngModel)]="username" name="username" required>
+        <input type="text" [(ngModel)]="username" name="username" required #usernameInput="ngModel">
+        <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-message">
+            El nombre de usuario es obligatorio.
+        </div>
 
+        <!-- Correo Electrónico -->
         <label>Correo Electrónico:</label>
-        <input type="email" [(ngModel)]="email" name="email" required>
+        <input type="email" [(ngModel)]="email" name="email" required #emailInput="ngModel" email>
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+            El correo electrónico es obligatorio y debe ser válido.
+        </div>
 
+        <!-- Contraseña -->
         <label>Contraseña:</label>
-        <input type="password" [(ngModel)]="password" name="password" required>
+        <div class="password-container">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password" required #passwordInput="ngModel">
+            <span (click)="togglePasswordVisibility()" class="password-toggle">
+                <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </span>
+        </div>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+            La contraseña es obligatoria.
+        </div>
 
+        <!-- Confirmar Contraseña -->
         <label>Confirmar Contraseña:</label>
-        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+        <div class="password-container">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" name="confirmPassword" required #confirmPasswordInput="ngModel">
+            <span (click)="toggleConfirmPasswordVisibility()" class="password-toggle">
+                <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </span>
+        </div>
+        <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="error-message">
+            La confirmación de contraseña es obligatoria.
+        </div>
+        <div *ngIf="confirmPasswordInput.value !== password && confirmPasswordInput.touched" class="error-message">
+            Las contraseñas no coinciden.
+        </div>
 
+        <!-- Rol -->
         <label>Rol:</label>
-        <select [(ngModel)]="role" name="role" required>
+        <select [(ngModel)]="role" name="role" required #roleInput="ngModel">
             <option value="" disabled selected>Seleccione un rol</option>
-            <option value="moderador">moderador</option>
-            <option value="estudiante">estudiante</option>
+            <option value="moderador">Moderador</option>
+            <option value="estudiante">Estudiante</option>
         </select>
+        <div *ngIf="roleInput.invalid && roleInput.touched" class="error-message">
+            Debe seleccionar un rol.
+        </div>
 
-        <button type="submit">Registrar</button>
+        <!-- Botón de registro -->
+        <button type="submit" [disabled]="registerForm.invalid">Registrar</button>
     </form>
 </div>

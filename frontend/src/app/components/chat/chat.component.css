@@ -1,85 +1,129 @@
-/* Estilos para los mensajes */
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+/* Estilos del video */
+.video-container {
+  flex: 2;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos del chat */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+/* Cabecera del chat */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Botón de logout */
+.logout-btn {
+  background: linear-gradient(135deg, #ff4d4d, #d90429);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #d90429, #ff0000);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mensajes */
 .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  flex-grow: 1;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Mensajes individuales */
 .message {
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  width: fit-content;
+  max-width: 80%;
+  word-wrap: break-word;
 }
 
-/* Mensajes del usuario actual */
+/* Mensajes del usuario */
 .message.user {
-    background-color: #007bff;
-    color: white;
-    align-self: flex-end;
+  background: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+/* Mensajes de otros */
+.message.others {
+  background: #e0e0e0;
+  color: black;
 }
 
 /* Mensajes del moderador */
 .message.moderator {
-    background-color: #28a745;
-    color: white;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
 }
 
-/* Mensajes de otros usuarios */
-.message.others {
-    background-color: #f8f9fa;
-    color: #333;
-    align-self: flex-start;
-}
-
-/* Estilos para el input y el botón */
+/* Input del chat */
 .chat-input {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .chat-input input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
 .chat-input button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .chat-input button:hover {
-    background-color: #0056b3;
-}
-
-.logout-btn {
-    background: linear-gradient(135deg, #ff4d4d, #d90429);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.logout-btn:hover {
-    background: linear-gradient(135deg, #d90429, #ff0000);
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.logout-btn:active {
-    transform: scale(0.95);
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  transform: scale(1.05);
 }

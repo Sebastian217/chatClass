@@ -11,24 +11,24 @@
             <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
         </div>
 
-        <p>Bienvenido, {{ user }}!</p>
+        <p class="welcome-msg">Bienvenido, <span class="user-highlight">{{ user }}</span>!</p>
 
         <div class="chat-messages">
-            <div *ngFor="let msg of messages" [ngClass]="{'message user': msg.user === user,
-                             'message moderator': msg.isModerator,
-                             'message others': msg.user !== user}">
-                <ng-container *ngIf="msg.user === user">
-                    <strong [ngStyle]="{'color': color}">{{ msg.user }} - {{ role }}:</strong> {{ msg.text }}
-                </ng-container>
-
-                <ng-container *ngIf="msg.user !== user">
-                    <strong [ngStyle]="{'color': colorOther}">{{ msg.user }} - {{ role }}:</strong> {{ msg.text }}
-                </ng-container>
+            <div *ngFor="let msg of messages" [ngClass]="{
+                'message user': msg.user === user,
+                'message moderator': msg.isModerator,
+                'message others': msg.user !== user
+            }">
+                <strong [ngStyle]="{'color': msg.user === user ? color : colorOther}">
+                    {{ msg.user }} - {{ role }}:
+                </strong>
+                {{ msg.text }}
             </div>
         </div>
 
         <div class="chat-input">
-            <input type="text" [(ngModel)]="message" placeholder="Escribe un mensaje..." />
+            <input type="text" [(ngModel)]="message" placeholder="Escribe un mensaje..."
+                (keyup.enter)="sendMessage()" />
             <button (click)="sendMessage()">Enviar</button>
         </div>
     </div>
