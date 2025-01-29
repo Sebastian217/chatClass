@@ -59,3 +59,5 @@ Ejecuta el servidor de desarrollo de Angular:
 ```bash
 ng serve 
 ```
+### **Paso 4: Abrir servidor Angular**
+Abre en el navegador la url:  [ChatClass](http://localhost:4200/)
