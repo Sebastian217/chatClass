@@ -21,9 +21,9 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService, private router: Router) {}
 
   ngOnInit() {
-    this.user = localStorage.getItem('username') || 'Anónimo';
-    this.userName = localStorage.getItem('name') || '';
-    this.role = localStorage.getItem('role') || '';
+    this.user = sessionStorage.getItem('username') || 'Anónimo';
+    this.userName = sessionStorage.getItem('name') || '';
+    this.role = sessionStorage.getItem('role') || '';
 
     // Cargar mensajes previos
     this.chatService.loadPreviousMessages().subscribe((prevMessages) => {
@@ -64,7 +64,7 @@ export class ChatComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         this.router.navigate(['/login']);
       }
     });

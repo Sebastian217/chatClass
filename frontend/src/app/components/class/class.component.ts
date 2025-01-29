@@ -8,7 +8,7 @@ export class ClassComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<{ videoUrl: string }>('http://localhost:5000/class').subscribe((data) => {
+    this.http.get<{ videoUrl: string }>('http://localhost:5000/api/class').subscribe((data) => {
       this.videoUrl = data.videoUrl;
     });
   }

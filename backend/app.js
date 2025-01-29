@@ -1,74 +1,20 @@
-// Backend: Node.js + Express + MongoDB + Socket.io
+const { app, server, io } = require('./config/server');
+require('./config/db'); // Conexión a la base de datos
+require('./config/dotenv'); // Cargar variables de entorno
 
-// 1. Configuración del servidor
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const http = require('http');
-const socketIo = require('socket.io');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const dotenv = require('dotenv');
+// Rutas
+const authRoutes = require('./routes/authRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const classRoutes = require('./routes/classRoutes');
 
-dotenv.config();
-const app = express();
-const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: { origin: '*' }
-});
+const Message = require('./models/messageModel');  // Ruta al archivo messageModel.js
 
-
-app.use(express.json());
-app.use(cors());
-
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log('MongoDB conectado')).catch(err => console.error(err));
-
-
-const User = mongoose.model('User', new mongoose.Schema({
-  name: String,
-  username: { type: String, unique: true },
-  password: String,
-  role: { type: String, enum: ['estudiante', 'moderador'], default: 'estudiante' }
-}));
-
-const Message = mongoose.model('Message', new mongoose.Schema({
-  user: String,
-  text: String,
-  role: String,
-  timestamp: { type: Date, default: Date.now }
-}));
-
-
-app.post('/register', async (req, res) => {
-  const { name, username, password, role } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  try {
-    const user = new User({ name, username, password: hashedPassword, role });
-    await user.save();
-    res.json({ message: 'Usuario registrado' });
-  } catch (error) {
-    res.status(400).json({ error: 'Error al registrar usuario' });
-  }
-});
-
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json({ error: 'Credenciales inválidas' });
-  }
-  const token = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token, user: { name: user.name, username: user.username, role: user.role } });
-});
+app.use('/api', authRoutes);
+app.use('/api', messageRoutes);
+app.use('/api', classRoutes);
 
 io.on('connection', async (socket) => {
   console.log('Usuario conectado');
-
-  // Enviar historial de mensajes al usuario conectado
   const messages = await Message.find().sort({ timestamp: 1 });
   socket.emit('loadMessages', messages);
 
@@ -82,20 +28,6 @@ io.on('connection', async (socket) => {
     console.log('Usuario desconectado');
   });
 });
-
-app.get('/class', (req, res) => {
-  res.json({ videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }); // Video de prueba
-});
-
-app.get('/messages', async (req, res) => {
-  try {
-    const messages = await Message.find().sort({ timestamp: 1 }); // Ordenar por fecha ascendente
-    res.json(messages);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener mensajes' });
-  }
-});
-
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
