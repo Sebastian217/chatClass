@@ -65,21 +65,35 @@ app.post('/login', async (req, res) => {
   res.json({ token, user: { name: user.name, username: user.username, role: user.role } });
 });
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('Usuario conectado');
+
+  // Enviar historial de mensajes al usuario conectado
+  const messages = await Message.find().sort({ timestamp: 1 });
+  socket.emit('loadMessages', messages);
+
   socket.on('sendMessage', async ({ user, text, role }) => {
     const message = new Message({ user, text, role });
     await message.save();
     io.emit('receiveMessage', message);
   });
+
   socket.on('disconnect', () => {
     console.log('Usuario desconectado');
   });
 });
 
-
 app.get('/class', (req, res) => {
   res.json({ videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }); // Video de prueba
+});
+
+app.get('/messages', async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ timestamp: 1 }); // Ordenar por fecha ascendente
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener mensajes' });
+  }
 });
 
 

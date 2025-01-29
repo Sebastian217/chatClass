@@ -127,3 +127,37 @@
   background: linear-gradient(135deg, #2e7d32, #1b5e20);
   transform: scale(1.05);
 }
+
+.welcome-msg {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    text-align: center;
+    background: linear-gradient(135deg, #00ff1a, #2e90e5);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    margin: 10px auto;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.user-highlight {
+    font-weight: bold;
+    color: white;
+    padding: 4px 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Animación para que el mensaje aparezca con efecto */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

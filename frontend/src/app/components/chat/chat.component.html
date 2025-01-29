@@ -11,16 +11,18 @@
             <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
         </div>
 
-        <p class="welcome-msg">Bienvenido, <span class="user-highlight">{{ user }}</span>!</p>
+        <p class="welcome-msg">
+            👋 ¡Bienvenido, <span class="user-highlight">{{ user }}</span>!
+        </p>
 
         <div class="chat-messages">
             <div *ngFor="let msg of messages" [ngClass]="{
                 'message user': msg.user === user,
-                'message moderator': msg.isModerator,
+                'message moderator': msg.role === 'moderador',
                 'message others': msg.user !== user
             }">
                 <strong [ngStyle]="{'color': msg.user === user ? color : colorOther}">
-                    {{ msg.user }} - {{ role }}:
+                    {{ msg.user }} - {{ msg.role || 'estudiante' }}:
                 </strong>
                 {{ msg.text }}
             </div>

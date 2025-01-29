@@ -9,10 +9,11 @@ import Swal from 'sweetalert2'; // Importamos SweetAlert2
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  name = ''; // Nuevo campo para el nombre
   username = '';
+  email = '';
   password = '';
   confirmPassword = '';
-  email = '';
   role = '';
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
@@ -20,6 +21,16 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   register() {
+    if (!this.name.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nombre obligatorio',
+        text: 'Debe ingresar su nombre completo',
+        confirmButtonColor: '#f39c12'
+      });
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
       Swal.fire({
         icon: 'warning',
@@ -41,9 +52,10 @@ export class RegisterComponent {
     }
 
     const user = {
+      name: this.name,
       username: this.username,
-      password: this.password,
       email: this.email,
+      password: this.password,
       role: this.role
     };
 

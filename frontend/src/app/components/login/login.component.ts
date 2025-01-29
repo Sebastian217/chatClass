@@ -11,13 +11,15 @@ export class LoginComponent {
   username = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   login() {
     this.authService.login({ username: this.username, password: this.password }).subscribe(
       res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('username', res.user.username);
+        localStorage.setItem('name', res.user.name);
         localStorage.setItem('role', res.user.role);
         this.router.navigate(['/chat']);
       },

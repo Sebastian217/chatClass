@@ -1,4 +1,3 @@
-// chat.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
@@ -14,6 +13,7 @@ export class ChatComponent implements OnInit {
   messages: any[] = [];
   message: string = '';
   user: string = '';
+  userName: string = '';
   role: string = '';
   color: string = '';
   colorOther: string = '';
@@ -21,18 +21,26 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService, private router: Router) {}
 
   ngOnInit() {
-    this.user = localStorage.getItem('username') || 'Anónimo';  // Recuperamos el nombre del usuario desde el localStorage
-    this.role = localStorage.getItem('role') || '';  // Recuperamos el nombre del usuario desde el localStorage
-    this.chatService.receiveMessages().subscribe(msg => this.messages.push(msg));  // Recibir mensajes del servidor
-    this.color = this.getRandomColor()
-    this.colorOther = this.getRandomColor()
+    this.user = localStorage.getItem('username') || 'Anónimo';
+    this.userName = localStorage.getItem('name') || '';
+    this.role = localStorage.getItem('role') || '';
+
+    // Cargar mensajes previos
+    this.chatService.loadPreviousMessages().subscribe((prevMessages) => {
+      this.messages = prevMessages;
+    });
+
+    // Escuchar mensajes en tiempo real
+    this.chatService.receiveMessages().subscribe(msg => this.messages.push(msg));
+
+    this.color = this.getRandomColor();
+    this.colorOther = this.getRandomColor();
   }
 
   sendMessage() {
     if (this.message.trim()) {
-      // Enviar el mensaje con el nombre del usuario
-      this.chatService.sendMessage({ user: this.user, text: this.message });
-      this.message = '';  // Limpiar el campo de mensaje después de enviarlo
+      this.chatService.sendMessage({ user: this.user, text: this.message, role: this.role });
+      this.message = '';
     }
   }
 
@@ -56,11 +64,9 @@ export class ChatComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        // El usuario confirma el cierre de sesión
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
       }
     });
   }
-  
 }

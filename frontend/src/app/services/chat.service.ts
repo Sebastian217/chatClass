@@ -15,4 +15,10 @@ export class ChatService {
       this.socket.on('receiveMessage', msg => observer.next(msg));
     });
   }
+
+  loadPreviousMessages(): Observable<any[]> {
+    return new Observable(observer => {
+      this.socket.on('loadMessages', (messages: any[]) => observer.next(messages));
+    });
+  }
 }
