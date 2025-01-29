@@ -36,6 +36,23 @@ body {
   height: auto;
 }
 
+.text-video {
+  font-size: 1.8rem;
+  background-color: rgba(0, 0, 0); /* Fondo semitransparente para el texto */
+  color: white;
+  text-align: center; /* Centra el texto */
+  padding: 10px; /* Espaciado alrededor del título */
+  margin: 0; /* Elimina el margen alrededor del título */
+  border-radius: 5px; /* Bordes redondeados */
+  z-index: 10; /* Asegura que el título esté por encima del video */
+  position: absolute; /* Hace que el título se posicione sobre el video */
+  top: 200px; /* Distancia del título desde la parte superior del contenedor */
+  left: 9%; /* Centra el título horizontalmente */
+  transform: translateX(-50%); /* Ajusta para centrar exactamente */
+  width: auto;
+  max-width: 90%; /* Para que el texto no se desborde en pantallas pequeñas */
+}
+
 /* Sección del chat */
 .chat-container {
   flex: 1;
