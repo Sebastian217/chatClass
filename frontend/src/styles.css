@@ -1,0 +1,131 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Sección del video */
+.video-container {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+
+.video-container app-class {
+  width: 100%;
+  height: auto;
+}
+
+/* Sección del chat (sin cambios) */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ddd;
+  padding: 15px;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  max-width: 50%;
+}
+
+/* Estilos para los formularios (login/registro) */
+.form-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Para separarlo un poco de la parte superior */
+}
+
+/* Títulos de los formularios */
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Campos del formulario */
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+}
+
+.form-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botón de submit */
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.form-container button:hover {
+  background: #0056b3;
+}
+
+/* Enlace para cambiar entre formularios (login/registro) */
+.form-container a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividad para los formularios */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  .video-container {
+    max-width: 100%;
+  }
+  .form-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+}
