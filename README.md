@@ -57,5 +57,5 @@ npm install
 ### **Paso 3: Iniciar el servidor Angular**
 Ejecuta el servidor de desarrollo de Angular:
 ```bash
-	ng serve 
+ng serve 
 ```
