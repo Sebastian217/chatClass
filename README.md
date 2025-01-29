@@ -29,7 +29,15 @@ Instala las dependencias necesarias para el backend:
 npm install
 ```
 
-###  **Paso 3:  **Iniciar el servidor****
+### **Paso 3: Configurar variables de entorno**
+Crea un archivo `.env` en la raíz de la carpeta `backend` y agrega las siguientes variables:
+```bash
+MONGO_URI=mongodb://localhost:27017/chatDB
+JWT_SECRET=supersecreto
+PORT=5000
+```
+
+###  **Paso 4:  **Iniciar el servidor****
 Ejecuta el servidor Node.js y validar si se tiene nodemon:
 ```bash
 npm run start 
