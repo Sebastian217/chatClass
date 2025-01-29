@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/environment';
 
 @Component({ selector: 'app-class', templateUrl: './class.component.html' })
 export class ClassComponent implements OnInit {
@@ -8,7 +9,7 @@ export class ClassComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<{ videoUrl: string }>('http://localhost:5000/api/class').subscribe((data) => {
+    this.http.get<{ videoUrl: string }>(`${environment.apiUrl}/api/class`).subscribe((data) => {
       this.videoUrl = data.videoUrl;
     });
   }
