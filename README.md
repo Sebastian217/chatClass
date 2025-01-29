@@ -47,7 +47,7 @@ npm run start
 ### **Paso 1: Acceder a la carpeta del frontend**
 Desde la raíz del proyecto, accede a la carpeta `frontend`:
 ```bash
-cd ../frontend
+cd chatClass/frontend
 ```
 ### **Paso 2: Instalar dependencias**
 Instala las dependencias necesarias para el frontend:
