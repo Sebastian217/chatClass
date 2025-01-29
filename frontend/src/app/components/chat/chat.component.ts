@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -44,7 +46,21 @@ export class ChatComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Vas a cerrar sesión.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // El usuario confirma el cierre de sesión
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
+    });
   }
+  
 }

@@ -17,7 +17,7 @@ const io = socketIo(server, {
   cors: { origin: '*' }
 });
 
-// Middleware
+
 app.use(express.json());
 app.use(cors());
 
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 }).then(() => console.log('MongoDB conectado')).catch(err => console.error(err));
 
-// Modelos
+
 const User = mongoose.model('User', new mongoose.Schema({
   name: String,
   username: { type: String, unique: true },
@@ -42,7 +42,7 @@ const Message = mongoose.model('Message', new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 }));
 
-// 2. Autenticación
+
 app.post('/register', async (req, res) => {
   const { name, username, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -65,7 +65,6 @@ app.post('/login', async (req, res) => {
   res.json({ token, user: { name: user.name, username: user.username, role: user.role } });
 });
 
-// 3. Chat en tiempo real con Socket.io
 io.on('connection', (socket) => {
   console.log('Usuario conectado');
   socket.on('sendMessage', async ({ user, text, role }) => {
@@ -78,11 +77,11 @@ io.on('connection', (socket) => {
   });
 });
 
-// 4. Streaming
+
 app.get('/class', (req, res) => {
   res.json({ videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }); // Video de prueba
 });
 
-// Iniciar servidor
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

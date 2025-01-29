@@ -77,4 +77,8 @@ export class RegisterComponent {
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
+
+  goToLogin() {
+    this.router.navigate(['/login']); // Redirige a la página de login
+  }
 }

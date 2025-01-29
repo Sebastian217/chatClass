@@ -56,5 +56,9 @@
 
         <!-- Botón de registro -->
         <button type="submit" [disabled]="registerForm.invalid">Registrar</button>
+
+        <button type="button" (click)="goToLogin()" class="go-to-login">
+            Volver al Login
+        </button>
     </form>
 </div>
