@@ -14,6 +14,13 @@
         <label>Confirmar Contraseña:</label>
         <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
 
+        <label>Rol:</label>
+        <select [(ngModel)]="role" name="role" required>
+            <option value="" disabled selected>Seleccione un rol</option>
+            <option value="moderador">moderador</option>
+            <option value="estudiante">estudiante</option>
+        </select>
+
         <button type="submit">Registrar</button>
     </form>
 </div>

@@ -12,6 +12,7 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   email = '';
+  role = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,7 +22,18 @@ export class RegisterComponent {
       return;
     }
 
-    const user = { username: this.username, password: this.password, email: this.email };
+    if (!this.role) {
+      alert('Debe seleccionar un rol');
+      return;
+    }
+
+    const user = {
+      username: this.username,
+      password: this.password,
+      email: this.email,
+      role: this.role
+    };
+
     this.authService.register(user).subscribe(
       res => {
         alert('Registro exitoso');

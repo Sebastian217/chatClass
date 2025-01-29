@@ -1,6 +1,7 @@
 // chat.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -10,14 +11,16 @@ import { ChatService } from '../../services/chat.service';
 export class ChatComponent implements OnInit {
   messages: any[] = [];
   message: string = '';
-  user: string = '';  // Variable para almacenar el nombre del usuario
+  user: string = '';
+  role: string = '';
   color: string = '';
   colorOther: string = '';
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService, private router: Router) {}
 
   ngOnInit() {
     this.user = localStorage.getItem('username') || 'Anónimo';  // Recuperamos el nombre del usuario desde el localStorage
+    this.role = localStorage.getItem('role') || '';  // Recuperamos el nombre del usuario desde el localStorage
     this.chatService.receiveMessages().subscribe(msg => this.messages.push(msg));  // Recibir mensajes del servidor
     this.color = this.getRandomColor()
     this.colorOther = this.getRandomColor()
@@ -38,5 +41,10 @@ export class ChatComponent implements OnInit {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

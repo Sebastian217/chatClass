@@ -60,3 +60,26 @@
 .chat-input button:hover {
     background-color: #0056b3;
 }
+
+.logout-btn {
+    background: linear-gradient(135deg, #ff4d4d, #d90429);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #d90429, #ff0000);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}

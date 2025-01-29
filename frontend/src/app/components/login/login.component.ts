@@ -7,18 +7,19 @@ export class LoginComponent {
   username = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-// login.component.ts
-login() {
-  this.authService.login({ username: this.username, password: this.password }).subscribe(
-    res => {
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('username', this.username);  // Guardamos el nombre de usuario
-      this.router.navigate(['/chat']);
-    },
-    err => alert('Error al iniciar sesión')
-  );
-}
+  login() {
+    this.authService.login({ username: this.username, password: this.password }).subscribe(
+      res => {
+        console.log(res);
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('username', res.user.username);
+        localStorage.setItem('role', res.user.role);
+        this.router.navigate(['/chat']);
+      },
+      err => alert('Error al iniciar sesión')
+    );
+  }
 
 }

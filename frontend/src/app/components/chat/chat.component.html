@@ -6,19 +6,23 @@
 
     <!-- Sección del chat -->
     <div class="chat-container">
-        <h2>Chat en vivo</h2>
+        <div class="chat-header">
+            <h2>Chat en vivo</h2>
+            <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+        </div>
+
         <p>Bienvenido, {{ user }}!</p>
 
         <div class="chat-messages">
             <div *ngFor="let msg of messages" [ngClass]="{'message user': msg.user === user,
-                'message moderator': msg.isModerator,
-                'message others': msg.user !== user}">
+                             'message moderator': msg.isModerator,
+                             'message others': msg.user !== user}">
                 <ng-container *ngIf="msg.user === user">
-                    <strong [ngStyle]="{'color': color}">{{ msg.user }}:</strong> {{ msg.text }}
+                    <strong [ngStyle]="{'color': color}">{{ msg.user }} - {{ role }}:</strong> {{ msg.text }}
                 </ng-container>
 
                 <ng-container *ngIf="msg.user !== user">
-                    <strong [ngStyle]="{'color': colorOther}">{{ msg.user }}:</strong> {{ msg.text }}
+                    <strong [ngStyle]="{'color': colorOther}">{{ msg.user }} - {{ role }}:</strong> {{ msg.text }}
                 </ng-container>
             </div>
         </div>
